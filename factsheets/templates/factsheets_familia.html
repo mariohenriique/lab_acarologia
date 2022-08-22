@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- esta parte é substituída no arquivo base -->
+{% block titulo %}
+    <title>Factsheets</title>
+{% endblock %}
+
+{% block conteudo %}
+
+<body>
+    <div class="titulo">
+        {% for value in familia %}
+        {{ value.familia }} ({{ value.autor }},{{ value.ano }}) <!-- mudar o nome da familia para o que for clicado -->
+    </div>
+
+    <div class="diagnoses">
+        Diagnoses: {{value.diagnoses}}
+    </div>
+
+    <div class="mapa">
+        <!-- chamar a funcao mapa e ela me retorna o mapa com os pings -->
+        mapa
+        {{ map | safe}}
+    </div>
+
+    <div class="genero_especie">
+        listas com os generos e as especie da familia
+        {% for value in genero %}
+        <p>
+            <ul>
+                <li>
+                    {{ value.genus }}
+                    {% for nome in especie %}
+                        {% if nome.genus == value.genus%}
+                            <p>{{ nome.genus }} {{ nome.specie }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            </ul>
+        </p>
+        {% empty %}
+        <p>
+            <tr>
+                <td colspan="1">Sem registro</td>
+            </tr>
+        </p>
+        {% endfor %}
+    </div>
+
+    <div class="zonacao">
+        grafico com a zonacao
+    </div>
+
+    <div class="dados_geneticos">
+        link para os dados genéticos {{ value.dados_geneticos }}
+    </div>
+
+    {% empty %}
+        A família {{ family }} não possui factsheets.
+    {% endfor %}
+</body>
+
+{% endblock %}

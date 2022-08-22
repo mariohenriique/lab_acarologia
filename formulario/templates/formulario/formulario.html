@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- esta parte é substituída no arquivo base -->
+{% block titulo %}
+    <title>Novo exemplar</title>
+{% endblock %}
+
+{% block conteudo %}
+
+    <body>
+        <form method="POST">
+            
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            
+            {% if request.user.is_authenticated %}
+
+            <button type="submit">Adicionar</button>
+
+            {% endif %}
+            <a href="/listar/colecao/">
+                <button type="button">Cancelar</button>
+            </a>
+        </form>
+        <!-- Altera o type dos inputs que recebem date no ínicio para date -->
+        <script>
+            $(document).ready(function(){
+                $("input[name*-date]").attr("type","date");
+            });
+        </script>
+    </body>
+
+{% endblock %}

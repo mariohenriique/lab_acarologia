@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- esta parte é substituída no arquivo base -->
+{% block titulo %}
+    <title>Lista da Coleção</title>
+{% endblock %}
+
+{% block conteudo %}
+
+
+    <body>
+        <p>
+            <form method="POST">
+                <a href="{% url 'baixa' %}" download>Download</a>
+            </form>
+            <a href="{% url 'cadastrar_colecao' %}">Adicionar Novo</a>
+        </p>
+
+        <tr>
+            <th id="1">Tombo</th>
+            <th id="2">Gênero</th>
+            <th id="3">Família</th>
+            <th id="4">Opções</th>
+        </tr>
+        {% for colecao in object_list %}
+        <p>
+            <tr>
+                <td>{{ colecao.catalogNumber }}</td>
+                <td>{{ colecao.genus }}</td>
+                <td>{{ colecao.family }}</td>
+                <td>
+                    <a href="{% url 'editar_colecao' colecao.pk %}" title="Editar">Editar</a>
+                </td>
+            </tr>
+        </p>
+        {% empty %}
+        <tr>
+            <td colspan="3">Sem registro</td>
+        </tr>
+        {% endfor %}
+
+
+    </body>
+
+{% endblock %}
